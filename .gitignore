@@ -1,0 +1,34 @@
+# Log files
+*.log
+
+# Public folder (generated files)
+files/public/
+files/raw/
+
+# Progress metadata
+.progress/
+
+# Lock file
+.sync.lock
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
