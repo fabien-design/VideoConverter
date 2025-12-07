@@ -1,0 +1,51 @@
+services:
+  video-converter:
+    build: .
+    image: video-converter:latest
+    container_name: video-converter
+    restart: unless-stopped
+
+    environment:
+      # Cron schedule (default: every hour)
+      # Examples:
+      # - "*/30 * * * *"  (every 30 minutes)
+      # - "0 */6 * * *"   (every 6 hours)
+      # - "0 2 * * *"     (daily at 2 AM)
+      CRON_SCHEDULE: "${CRON_SCHEDULE:-0 * * * *}"
+
+      # Run sync immediately on container start
+      RUN_ON_START: "${RUN_ON_START:-true}"
+
+      # Python output buffering (0 = unbuffered for real-time logs)
+      PYTHONUNBUFFERED: "1"
+
+    volumes:
+      # Mount your raw and public directories
+      # Customize these paths in .env file or via environment variables
+      - ${RAW_DIR:-./files/raw}:/app/files/raw:ro
+      - ${PUBLIC_DIR:-./files/public}:/app/files/public
+
+      # Progress tracking and logs (optional, can use named volumes)
+      - progress-data:/app/.progress
+      - ./sync.log:/app/sync.log
+
+    # Resource limits (adjust based on your VPS)
+    deploy:
+      resources:
+        limits:
+          cpus: '${CPU_LIMIT:-4.0}'
+          memory: ${MEMORY_LIMIT:-2G}
+        reservations:
+          cpus: '${CPU_RESERVATION:-1.0}'
+          memory: ${MEMORY_RESERVATION:-512M}
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  progress-data:
+    driver: local

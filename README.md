@@ -14,7 +14,18 @@ Automatic video converter that syncs a `raw` folder to a `public` folder, conver
 - **Progress Bar**: Real-time progress with ETA for each video conversion
 - **Comprehensive Logging**: Logs all operations to `sync.log` and console
 
-## Requirements
+## 🐳 Docker Deployment (Recommended for VPS)
+
+**Pour un déploiement sur VPS Debian avec Docker, consultez le guide complet :** [README_DOCKER.md](README_DOCKER.md)
+
+Quick start avec Docker :
+```bash
+cp .env.example .env
+# Éditez .env pour configurer RAW_DIR et PUBLIC_DIR
+docker compose up -d
+```
+
+## Requirements (Installation manuelle)
 
 - Python 3.6 or higher
 - FFmpeg installed and available in PATH

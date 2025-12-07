@@ -11,6 +11,10 @@ files/raw/
 # Lock file
 .sync.lock
 
+# Docker environment file (keep .env.example)
+.env
+.env.local
+
 # Python cache
 __pycache__/
 *.py[cod]
